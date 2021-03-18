@@ -1,18 +1,23 @@
 const router = require('express').Router();
 const path = require('path')
 
-router.route('/revisasivivo').get((req, res) => {
-    status = `estoy bien`;
-    res.json({ status });
-  })
-  
+router.route('/autor').get((req, res) => {
+  alumno = `MMM`
+  servicio = "Cloud Foundry en IBM Cloud"
+  res.json({
+    alumno,
+    servicio
+  });
+})
+
 
 // path con retorno directo
-router.use('/', (req, res) => 
-{ 
-    res.sendFile(path.join(__dirname+'../../../src/html/index.html'));
-}
-)
+
+router.route('/').post((req, res) => {
+  //Content-Type: application/json
+  console.log(req.body)
+})
+
 
 
 

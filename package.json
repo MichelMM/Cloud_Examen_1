@@ -13,7 +13,7 @@
     "nodejs",
     "express"
   ],
-  "author": "enjoyable_programming",
+  "author": "Michel_Maris",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
