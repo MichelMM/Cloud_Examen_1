@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: despliegue-app-1
+  labels:
+    name: despliegue-app-1
+    app: testing-kube-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: testing-kube-pod
+      app: testing-kube-app
+  template:
+    metadata:
+      name: testing-kube-pod
+      labels:
+        name: testing-kube-pod
+        app: testing-kube-app
+    spec:
+      containers:
+        - name: testing-kube-container
+          image: "317619948515.dkr.ecr.us-east-1.amazonaws.com/cloud_casa_4_1:latest"
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          livenessProbe:
+            httpGet:
+              path: /revisasivivo
+              port: 3500
+            initialDelaySeconds: 5
+            periodSeconds: 5
