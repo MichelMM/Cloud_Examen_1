@@ -24,17 +24,25 @@ router.route('/autor').get((req, res) => {
 
 router.route('/').post((req, res) => {
   //Content-Type: application/json
-  const toneParams = {
-    toneInput: { 'text': req.body.text },
-    contentType: 'application/json',
-  };
-  toneAnalyzer.tone(toneParams)
-  .then(toneAnalysis => {
-    res.json(toneAnalysis.result);
+  if(req.body.text){
+    const toneParams = {
+      toneInput: { 'text': req.body.text },
+      contentType: 'application/json',
+    };
+    toneAnalyzer.tone(toneParams)
+    .then(toneAnalysis => {
+      res.json(toneAnalysis.result);
+    })
+    .catch(err => {
+      console.log('error:', err);
+    });
+  }else{
+    //En caso de error se debe regresar una salida indicando el error (Por ejemplo si recibes un JSON sin el tag esperado).
+    res.status(400).json({
+      error: "error, bad request: \"Missing 'text' field in JSON\""
   })
-  .catch(err => {
-    console.log('error:', err);
-  });
+  }
+  
 })
 
 
