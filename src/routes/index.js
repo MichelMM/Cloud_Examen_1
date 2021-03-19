@@ -11,23 +11,6 @@ const toneAnalyzer = new ToneAnalyzerV3({
   serviceUrl: process.env.URL,
 });
 
-const text = 'Team, I know that times are tough! Product '
-  + 'sales have been disappointing for the past three '
-  + 'quarters. We have a competitive product, but we '
-  + 'need to do a better job of selling it!';
-
-const toneParams = {
-  toneInput: { 'text': text },
-  contentType: 'application/json',
-};
-
-toneAnalyzer.tone(toneParams)
-  .then(toneAnalysis => {
-    console.log(JSON.stringify(toneAnalysis, null, 2));
-  })
-  .catch(err => {
-    console.log('error:', err);
-  });
 
 router.route('/autor').get((req, res) => {
   alumno = `MMM`
@@ -41,7 +24,17 @@ router.route('/autor').get((req, res) => {
 
 router.route('/').post((req, res) => {
   //Content-Type: application/json
-  console.log(req.body)
+  const toneParams = {
+    toneInput: { 'text': req.body.text },
+    contentType: 'application/json',
+  };
+  toneAnalyzer.tone(toneParams)
+  .then(toneAnalysis => {
+    res.json(toneAnalysis.result);
+  })
+  .catch(err => {
+    console.log('error:', err);
+  });
 })
 
 
